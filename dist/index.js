@@ -402,6 +402,7 @@ function useMarkers(markers, _a, _b) {
             var coordinates = marker.coordinates, value = marker.value;
             var shouldUseCustomMarker = renderer !== undefined;
             var color = marker.color || MARKER_DEFAULT_COLOR;
+            var alphaT = new three.TextureLoader().load("../test_b_check.jpg");
             var size = sizeScale(value);
             var markerObject;
             if (shouldUseCustomMarker) {
@@ -417,6 +418,7 @@ function useMarkers(markers, _a, _b) {
                             mesh_1.geometry = new three.BoxGeometry(unitRadius, unitRadius, from_1.size);
                             mesh_1.material = new three.MeshLambertMaterial({
                                 color: color,
+                                alphaMap: alphaT,
                             });
                             break;
                         case MarkerType.Dot:
@@ -551,11 +553,11 @@ function reducer(state, action) {
     var payload = action.payload, type = action.type;
     switch (type) {
         case ActionType.Animate:
-            return __assign({}, state, { activeMarker: undefined, activeMarkerObject: undefined, focus: payload.focus, focusOptions: payload.focusOptions });
+            return __assign(__assign({}, state), { activeMarker: undefined, activeMarkerObject: undefined, focus: payload.focus, focusOptions: payload.focusOptions });
         case ActionType.SetFocus:
-            return __assign({}, state, { activeMarker: undefined, activeMarkerObject: undefined, focus: payload.focus, focusOptions: payload.focusOptions || state.focusOptions });
+            return __assign(__assign({}, state), { activeMarker: undefined, activeMarkerObject: undefined, focus: payload.focus, focusOptions: payload.focusOptions || state.focusOptions });
         case ActionType.SetActiveMarker:
-            return __assign({}, state, { activeMarker: payload.marker, activeMarkerObject: payload.markerObject });
+            return __assign(__assign({}, state), { activeMarker: payload.marker, activeMarkerObject: payload.markerObject });
         default:
             return state;
     }
@@ -590,11 +592,11 @@ function Tooltip(_a) {
 function ReactGlobe(_a) {
     var animations = _a.animations, cameraOptions = _a.cameraOptions, initialFocus = _a.focus, initialFocusOptions = _a.focusOptions, globeOptions = _a.globeOptions, lightOptions = _a.lightOptions, lookAt = _a.lookAt, markers = _a.markers, markerOptions = _a.markerOptions, onClickMarker = _a.onClickMarker, onDefocus = _a.onDefocus, onMouseOutMarker = _a.onMouseOutMarker, onMouseOverMarker = _a.onMouseOverMarker, onTextureLoaded = _a.onTextureLoaded, initialSize = _a.size;
     // merge options with defaults to support incomplete options
-    var mergedGlobeOptions = __assign({}, defaultGlobeOptions, globeOptions);
-    var mergedCameraOptions = __assign({}, defaultCameraOptions, cameraOptions);
-    var mergedLightOptions = __assign({}, defaultLightOptions, lightOptions);
-    var mergedFocusOptions = __assign({}, defaultFocusOptions, initialFocusOptions);
-    var mergedMarkerOptions = __assign({}, defaultMarkerOptions, markerOptions);
+    var mergedGlobeOptions = __assign(__assign({}, defaultGlobeOptions), globeOptions);
+    var mergedCameraOptions = __assign(__assign({}, defaultCameraOptions), cameraOptions);
+    var mergedLightOptions = __assign(__assign({}, defaultLightOptions), lightOptions);
+    var mergedFocusOptions = __assign(__assign({}, defaultFocusOptions), initialFocusOptions);
+    var mergedMarkerOptions = __assign(__assign({}, defaultMarkerOptions), markerOptions);
     var _b = React.useReducer(reducer, {
         focus: initialFocus,
         focusOptions: mergedFocusOptions,
@@ -687,7 +689,7 @@ function ReactGlobe(_a) {
             type: ActionType.SetFocus,
             payload: {
                 focus: initialFocus,
-                focusOptions: __assign({}, defaultFocusOptions, initialFocusOptions),
+                focusOptions: __assign(__assign({}, defaultFocusOptions), initialFocusOptions),
             },
         });
     }, [initialFocus, initialFocusOptions]);

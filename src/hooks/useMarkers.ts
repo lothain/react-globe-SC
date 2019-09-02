@@ -1,4 +1,4 @@
-import { max, min } from 'd3-array';
+import { max, min, thresholdFreedmanDiaconis } from 'd3-array';
 import { scaleLinear } from 'd3-scale';
 import { useEffect, useRef } from 'react';
 import {
@@ -9,9 +9,9 @@ import {
   MeshLambertMaterial,
   SphereGeometry,
   Vector3,
+  TextureLoader,
 } from 'three';
 import { createGlowMesh } from 'three-glow-mesh';
-
 import {
   MARKER_DEFAULT_COLOR,
   MARKER_SEGMENTS,
@@ -66,6 +66,7 @@ export default function useMarkers<T>(
       const shouldUseCustomMarker = renderer !== undefined;
 
       const color = marker.color || MARKER_DEFAULT_COLOR;
+      const alphaT = new TextureLoader().load("../test_b_check.jpg")
       const size = sizeScale(value);
       let markerObject: InteractableObject3D;
 
@@ -85,7 +86,7 @@ export default function useMarkers<T>(
               );
               mesh.material = new MeshLambertMaterial({
                 color,
-                alphaMap: 'https://www.edharriss.com/tutorials/tutorial_xsi_bumpmap_mixing/bumpmap_mixing_files/test_b_check.jpg',
+                alphaMap: alphaT,
               });
               break;
             case MarkerType.Dot:
