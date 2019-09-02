@@ -14,7 +14,7 @@ var OrbitControls = _interopDefault(require('three-orbitcontrols'));
 var threeGlowMesh = require('three-glow-mesh');
 var d3Array = require('d3-array');
 var d3Scale = require('d3-scale');
-var threeSvgLoader = require('three-svg-loader');
+var SVGLoader = _interopDefault(require('three-svg-loader'));
 var ResizeObserver = _interopDefault(require('resize-observer-polyfill'));
 var tippy = _interopDefault(require('tippy.js'));
 
@@ -418,7 +418,7 @@ function useMarkers(markers, _a, _b) {
             var shouldUseCustomMarker = renderer !== undefined;
             var color = marker.color || MARKER_DEFAULT_COLOR;
             var alphaT = new three.TextureLoader().load("../test_b_check.jpg");
-            var iconLoader = new threeSvgLoader.SVGLoader();
+            var iconLoader = new SVGLoader().load("../mining-king-no-tools.svg");
             var size = sizeScale(value);
             var markerObject;
             if (shouldUseCustomMarker) {
@@ -438,24 +438,8 @@ function useMarkers(markers, _a, _b) {
                             });
                             break;
                         case MarkerType.Mine:
-                            iconLoader.load('../mining-king-no-tools.svg', 
-                            // called when the resource is loaded
-                            function (data) {
-                                var paths = data.paths;
-                                for (var i = 0; i < paths.length; i++) {
-                                    var path = paths[i];
-                                    mesh_1.material = new three.MeshBasicMaterial({
-                                        color: marker.color,
-                                        side: three.DoubleSide,
-                                        depthWrite: false
-                                    });
-                                    var shapes = path.toShapes(true);
-                                    for (var j = 0; j < shapes.length; j++) {
-                                        var shape = shapes[j];
-                                        mesh_1.geometry = new three.ShapeBufferGeometry(shape);
-                                    }
-                                }
-                            });
+                            mesh_1.geometry = iconLoader.mesh.geometry;
+                            mesh_1.material = iconLoader.mesh.material;
                             break;
                         case MarkerType.Dot:
                         default:

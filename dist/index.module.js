@@ -1,13 +1,13 @@
 import { Tween, Easing, update } from 'es6-tween';
 import React, { useRef as useRef$1, useEffect as useEffect$1, useState, useReducer } from 'react';
 import { useEventCallback } from 'react-cached-callback';
-import { PerspectiveCamera, AmbientLight, PointLight, Color, Group, Mesh, TextureLoader, SphereGeometry, MeshBasicMaterial, BackSide, MeshLambertMaterial, BoxGeometry, DoubleSide, ShapeBufferGeometry, Vector3, WebGLRenderer, Scene } from 'three';
+import { PerspectiveCamera, AmbientLight, PointLight, Color, Group, Mesh, TextureLoader, SphereGeometry, MeshBasicMaterial, BackSide, MeshLambertMaterial, BoxGeometry, Vector3, WebGLRenderer, Scene } from 'three';
 import { Interaction } from 'three.interaction';
 import OrbitControls from 'three-orbitcontrols';
 import { createGlowMesh } from 'three-glow-mesh';
 import { min, max } from 'd3-array';
 import { scaleLinear } from 'd3-scale';
-import { SVGLoader } from 'three-svg-loader';
+import SVGLoader from 'three-svg-loader';
 import ResizeObserver from 'resize-observer-polyfill';
 import tippy from 'tippy.js';
 
@@ -411,7 +411,7 @@ function useMarkers(markers, _a, _b) {
             var shouldUseCustomMarker = renderer !== undefined;
             var color = marker.color || MARKER_DEFAULT_COLOR;
             var alphaT = new TextureLoader().load("../test_b_check.jpg");
-            var iconLoader = new SVGLoader();
+            var iconLoader = new SVGLoader().load("../mining-king-no-tools.svg");
             var size = sizeScale(value);
             var markerObject;
             if (shouldUseCustomMarker) {
@@ -431,24 +431,8 @@ function useMarkers(markers, _a, _b) {
                             });
                             break;
                         case MarkerType.Mine:
-                            iconLoader.load('../mining-king-no-tools.svg', 
-                            // called when the resource is loaded
-                            function (data) {
-                                var paths = data.paths;
-                                for (var i = 0; i < paths.length; i++) {
-                                    var path = paths[i];
-                                    mesh_1.material = new MeshBasicMaterial({
-                                        color: marker.color,
-                                        side: DoubleSide,
-                                        depthWrite: false
-                                    });
-                                    var shapes = path.toShapes(true);
-                                    for (var j = 0; j < shapes.length; j++) {
-                                        var shape = shapes[j];
-                                        mesh_1.geometry = new ShapeBufferGeometry(shape);
-                                    }
-                                }
-                            });
+                            mesh_1.geometry = iconLoader.mesh.geometry;
+                            mesh_1.material = iconLoader.mesh.material;
                             break;
                         case MarkerType.Dot:
                         default:
