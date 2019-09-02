@@ -27,6 +27,7 @@ export type MarkerCallback = (
 export enum MarkerType {
   Bar = 'bar',
   Dot = 'dot',
+  Mine = 'mine',
 }
 
 export type EasingFunction =

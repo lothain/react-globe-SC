@@ -89,6 +89,17 @@ export default function useMarkers<T>(
                 alphaMap: alphaT,
               });
               break;
+              case MarkerType.Mine:
+                mesh.geometry = new BoxGeometry(
+                  unitRadius,
+                  unitRadius,
+                  from.size,
+                );
+                mesh.material = new MeshLambertMaterial({
+                  color,
+                  alphaMap: alphaT,
+                });
+                break;
             case MarkerType.Dot:
             default:
               mesh.geometry = new SphereGeometry(

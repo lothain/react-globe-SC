@@ -102,4 +102,18 @@ export const defaultBarMarkerOptions: MarkerOptions = {
   type: MarkerType.Bar,
 };
 
+export const defaultMineMarkerOptions: MarkerOptions = {
+  activeScale: 1.05,
+  animationDuration: 2000,
+  enableGlow: false,
+  enableTooltip: true,
+  getTooltipContent: marker => JSON.stringify(marker.coordinates),
+  glowCoefficient: 0,
+  glowPower: 3,
+  glowRadiusScale: 2,
+  offsetRadiusScale: 0,
+  radiusScaleRange: [0.2, defaultFocusOptions.distanceRadiusScale - 1],
+  type: MarkerType.Mine,
+};
+
 export const defaultMarkerOptions: MarkerOptions = defaultDotMarkerOptions;
