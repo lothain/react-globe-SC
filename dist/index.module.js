@@ -1,12 +1,13 @@
 import { Tween, Easing, update } from 'es6-tween';
 import React, { useRef as useRef$1, useEffect as useEffect$1, useState, useReducer } from 'react';
 import { useEventCallback } from 'react-cached-callback';
-import { PerspectiveCamera, AmbientLight, PointLight, Color, Group, Mesh, TextureLoader, SphereGeometry, MeshBasicMaterial, BackSide, MeshLambertMaterial, BoxGeometry, Vector3, WebGLRenderer, Scene } from 'three';
+import { PerspectiveCamera, AmbientLight, PointLight, Color, Group, Mesh, TextureLoader, SphereGeometry, MeshBasicMaterial, BackSide, MeshLambertMaterial, BoxGeometry, DoubleSide, ShapeBufferGeometry, Vector3, WebGLRenderer, Scene } from 'three';
 import { Interaction } from 'three.interaction';
 import OrbitControls from 'three-orbitcontrols';
 import { createGlowMesh } from 'three-glow-mesh';
 import { min, max } from 'd3-array';
 import { scaleLinear } from 'd3-scale';
+import { SVGLoader } from 'three-svg-loader';
 import ResizeObserver from 'resize-observer-polyfill';
 import tippy from 'tippy.js';
 
@@ -36,6 +37,7 @@ var MarkerType;
 (function (MarkerType) {
     MarkerType["Bar"] = "bar";
     MarkerType["Dot"] = "dot";
+    MarkerType["Mine"] = "mine";
 })(MarkerType || (MarkerType = {}));
 
 // hardcoded constants that can eventually be exposed via options
@@ -121,6 +123,19 @@ var defaultBarMarkerOptions = {
     offsetRadiusScale: 0,
     radiusScaleRange: [0.2, defaultFocusOptions.distanceRadiusScale - 1],
     type: MarkerType.Bar,
+};
+var defaultMineMarkerOptions = {
+    activeScale: 1.05,
+    animationDuration: 2000,
+    enableGlow: false,
+    enableTooltip: true,
+    getTooltipContent: function (marker) { return JSON.stringify(marker.coordinates); },
+    glowCoefficient: 0,
+    glowPower: 3,
+    glowRadiusScale: 2,
+    offsetRadiusScale: 0,
+    radiusScaleRange: [0.2, defaultFocusOptions.distanceRadiusScale - 1],
+    type: MarkerType.Mine,
 };
 var defaultMarkerOptions = defaultDotMarkerOptions;
 
@@ -396,6 +411,7 @@ function useMarkers(markers, _a, _b) {
             var shouldUseCustomMarker = renderer !== undefined;
             var color = marker.color || MARKER_DEFAULT_COLOR;
             var alphaT = new TextureLoader().load("../test_b_check.jpg");
+            var iconLoader = new SVGLoader();
             var size = sizeScale(value);
             var markerObject;
             if (shouldUseCustomMarker) {
@@ -412,6 +428,26 @@ function useMarkers(markers, _a, _b) {
                             mesh_1.material = new MeshLambertMaterial({
                                 color: color,
                                 alphaMap: alphaT,
+                            });
+                            break;
+                        case MarkerType.Mine:
+                            iconLoader.load('../mining-king-no-tools.svg', 
+                            // called when the resource is loaded
+                            function (data) {
+                                var paths = data.paths;
+                                for (var i = 0; i < paths.length; i++) {
+                                    var path = paths[i];
+                                    mesh_1.material = new MeshBasicMaterial({
+                                        color: marker.color,
+                                        side: DoubleSide,
+                                        depthWrite: false
+                                    });
+                                    var shapes = path.toShapes(true);
+                                    for (var j = 0; j < shapes.length; j++) {
+                                        var shape = shapes[j];
+                                        mesh_1.geometry = new ShapeBufferGeometry(shape);
+                                    }
+                                }
                             });
                             break;
                         case MarkerType.Dot:
@@ -782,4 +818,4 @@ ReactGlobe.defaultProps = {
 };
 
 export default ReactGlobe;
-export { BACKGROUND_RADIUS_SCALE, CAMERA_DAMPING_FACTOR, CAMERA_FAR, CAMERA_FOV, CAMERA_MAX_POLAR_ANGLE, CAMERA_MIN_DISTANCE_RADIUS_SCALE, CAMERA_MIN_POLAR_ANGLE, CAMERA_NEAR, CLOUDS_RADIUS_OFFSET, GLOBE_SEGMENTS, MARKER_ACTIVE_ANIMATION_DURATION, MARKER_ACTIVE_ANIMATION_EASING_FUNCTION, MARKER_DEFAULT_COLOR, MARKER_SEGMENTS, MARKER_UNIT_RADIUS_SCALE, RADIUS, coordinatesToPosition, defaultBarMarkerOptions, defaultCameraOptions, defaultDotMarkerOptions, defaultFocusOptions, defaultGlobeOptions, defaultLightOptions, defaultMarkerOptions, tween };
+export { BACKGROUND_RADIUS_SCALE, CAMERA_DAMPING_FACTOR, CAMERA_FAR, CAMERA_FOV, CAMERA_MAX_POLAR_ANGLE, CAMERA_MIN_DISTANCE_RADIUS_SCALE, CAMERA_MIN_POLAR_ANGLE, CAMERA_NEAR, CLOUDS_RADIUS_OFFSET, GLOBE_SEGMENTS, MARKER_ACTIVE_ANIMATION_DURATION, MARKER_ACTIVE_ANIMATION_EASING_FUNCTION, MARKER_DEFAULT_COLOR, MARKER_SEGMENTS, MARKER_UNIT_RADIUS_SCALE, RADIUS, coordinatesToPosition, defaultBarMarkerOptions, defaultCameraOptions, defaultDotMarkerOptions, defaultFocusOptions, defaultGlobeOptions, defaultLightOptions, defaultMarkerOptions, defaultMineMarkerOptions, tween };

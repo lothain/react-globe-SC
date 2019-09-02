@@ -14,6 +14,7 @@ var OrbitControls = _interopDefault(require('three-orbitcontrols'));
 var threeGlowMesh = require('three-glow-mesh');
 var d3Array = require('d3-array');
 var d3Scale = require('d3-scale');
+var threeSvgLoader = require('three-svg-loader');
 var ResizeObserver = _interopDefault(require('resize-observer-polyfill'));
 var tippy = _interopDefault(require('tippy.js'));
 
@@ -43,6 +44,7 @@ var MarkerType;
 (function (MarkerType) {
     MarkerType["Bar"] = "bar";
     MarkerType["Dot"] = "dot";
+    MarkerType["Mine"] = "mine";
 })(MarkerType || (MarkerType = {}));
 
 // hardcoded constants that can eventually be exposed via options
@@ -128,6 +130,19 @@ var defaultBarMarkerOptions = {
     offsetRadiusScale: 0,
     radiusScaleRange: [0.2, defaultFocusOptions.distanceRadiusScale - 1],
     type: MarkerType.Bar,
+};
+var defaultMineMarkerOptions = {
+    activeScale: 1.05,
+    animationDuration: 2000,
+    enableGlow: false,
+    enableTooltip: true,
+    getTooltipContent: function (marker) { return JSON.stringify(marker.coordinates); },
+    glowCoefficient: 0,
+    glowPower: 3,
+    glowRadiusScale: 2,
+    offsetRadiusScale: 0,
+    radiusScaleRange: [0.2, defaultFocusOptions.distanceRadiusScale - 1],
+    type: MarkerType.Mine,
 };
 var defaultMarkerOptions = defaultDotMarkerOptions;
 
@@ -403,6 +418,7 @@ function useMarkers(markers, _a, _b) {
             var shouldUseCustomMarker = renderer !== undefined;
             var color = marker.color || MARKER_DEFAULT_COLOR;
             var alphaT = new three.TextureLoader().load("../test_b_check.jpg");
+            var iconLoader = new threeSvgLoader.SVGLoader();
             var size = sizeScale(value);
             var markerObject;
             if (shouldUseCustomMarker) {
@@ -419,6 +435,26 @@ function useMarkers(markers, _a, _b) {
                             mesh_1.material = new three.MeshLambertMaterial({
                                 color: color,
                                 alphaMap: alphaT,
+                            });
+                            break;
+                        case MarkerType.Mine:
+                            iconLoader.load('../mining-king-no-tools.svg', 
+                            // called when the resource is loaded
+                            function (data) {
+                                var paths = data.paths;
+                                for (var i = 0; i < paths.length; i++) {
+                                    var path = paths[i];
+                                    mesh_1.material = new three.MeshBasicMaterial({
+                                        color: marker.color,
+                                        side: three.DoubleSide,
+                                        depthWrite: false
+                                    });
+                                    var shapes = path.toShapes(true);
+                                    for (var j = 0; j < shapes.length; j++) {
+                                        var shape = shapes[j];
+                                        mesh_1.geometry = new three.ShapeBufferGeometry(shape);
+                                    }
+                                }
                             });
                             break;
                         case MarkerType.Dot:
@@ -813,4 +849,5 @@ exports.defaultFocusOptions = defaultFocusOptions;
 exports.defaultGlobeOptions = defaultGlobeOptions;
 exports.defaultLightOptions = defaultLightOptions;
 exports.defaultMarkerOptions = defaultMarkerOptions;
+exports.defaultMineMarkerOptions = defaultMineMarkerOptions;
 exports.tween = tween;

@@ -32,6 +32,7 @@ export default [
       'react-cached-callback',
       'resize-observer-polyfill',
       'three',
+      'three-svg-loader',
       'three-glow-mesh',
       'three-orbitcontrols',
       'three.interaction',

@@ -10,7 +10,10 @@ import {
   SphereGeometry,
   Vector3,
   TextureLoader,
+  DoubleSide,
+  ShapeBufferGeometry,
 } from 'three';
+import { SVGLoader } from 'three-svg-loader';
 import { createGlowMesh } from 'three-glow-mesh';
 import {
   MARKER_DEFAULT_COLOR,
@@ -67,6 +70,7 @@ export default function useMarkers<T>(
 
       const color = marker.color || MARKER_DEFAULT_COLOR;
       const alphaT = new TextureLoader().load("../test_b_check.jpg")
+      const iconLoader = new SVGLoader();
       const size = sizeScale(value);
       let markerObject: InteractableObject3D;
 
@@ -90,15 +94,32 @@ export default function useMarkers<T>(
               });
               break;
               case MarkerType.Mine:
-                mesh.geometry = new BoxGeometry(
-                  unitRadius,
-                  unitRadius,
-                  from.size,
-                );
-                mesh.material = new MeshLambertMaterial({
-                  color,
-                  alphaMap: alphaT,
-                });
+                iconLoader.load('../mining-king-no-tools.svg',
+                	// called when the resource is loaded
+	              function ( data ) {
+
+                var paths = data.paths;
+
+		for ( var i = 0; i < paths.length; i ++ ) {
+
+			var path = paths[ i ];
+
+			mesh.material = new MeshBasicMaterial( {
+				color: marker.color,
+				side: DoubleSide,
+				depthWrite: false
+			} );
+
+			var shapes = path.toShapes( true );
+
+        for ( var j = 0; j < shapes.length; j ++ ) {
+
+          var shape = shapes[ j ];
+          mesh.geometry = new ShapeBufferGeometry( shape );
+
+        }
+		}
+  });
                 break;
             case MarkerType.Dot:
             default:

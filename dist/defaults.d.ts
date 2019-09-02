@@ -21,4 +21,5 @@ export declare const defaultGlobeOptions: GlobeOptions;
 export declare const defaultLightOptions: LightOptions;
 export declare const defaultDotMarkerOptions: MarkerOptions;
 export declare const defaultBarMarkerOptions: MarkerOptions;
+export declare const defaultMineMarkerOptions: MarkerOptions;
 export declare const defaultMarkerOptions: MarkerOptions;

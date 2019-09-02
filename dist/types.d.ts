@@ -15,7 +15,8 @@ export interface Marker {
 export declare type MarkerCallback = (marker: Marker, markerObject?: THREE.Object3D, event?: PointerEvent) => void;
 export declare enum MarkerType {
     Bar = "bar",
-    Dot = "dot"
+    Dot = "dot",
+    Mine = "mine"
 }
 export declare type EasingFunction = ['Back', 'In'] | ['Back', 'Out'] | ['Back', 'InOut'] | ['Bounce', 'In'] | ['Bounce', 'Out'] | ['Bounce', 'InOut'] | ['Circular', 'In'] | ['Circular', 'Out'] | ['Circular', 'InOut'] | ['Cubic', 'In'] | ['Cubic', 'Out'] | ['Cubic', 'InOut'] | ['Elastic', 'In'] | ['Elastic', 'Out'] | ['Elastic', 'InOut'] | ['Linear', 'None'] | ['Exponential', 'In'] | ['Exponential', 'Out'] | ['Exponential', 'InOut'] | ['Quadratic', 'In'] | ['Quadratic', 'Out'] | ['Quadratic', 'InOut'] | ['Linear', 'None'] | ['Cubic', 'In'] | ['Cubic', 'Out'] | ['Cubic', 'InOut'] | ['Quartic', 'In'] | ['Quartic', 'Out'] | ['Quartic', 'InOut'] | ['Quintic', 'In'] | ['Quintic', 'Out'] | ['Quintic', 'InOut'] | ['Sinusoidal', 'In'] | ['Sinusoidal', 'Out'] | ['Sinusoidal', 'InOut'] | ['Exponential', 'In'] | ['Exponential', 'Out'] | ['Exponential', 'InOut'] | ['Circular', 'In'] | ['Circular', 'Out'] | ['Circular', 'InOut'] | ['Elastic', 'In'] | ['Elastic', 'Out'] | ['Elastic', 'InOut'] | ['Quadratic', 'In'] | ['Quadratic', 'Out'] | ['Quadratic', 'InOut'];
 export interface InteractionEvent extends Event {
