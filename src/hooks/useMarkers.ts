@@ -94,8 +94,32 @@ export default function useMarkers<T>(
               });
               break;
               case MarkerType.Mine:
-                mesh.geometry = iconLoader.mesh.geometry;
-                mesh.material = iconLoader.mesh.material;
+                iconLoader.load('../mining-king-no-tools.svg',
+                	// called when the resource is loaded
+	              function ( data ) {
+
+                var paths = data.paths;
+
+		for ( var i = 0; i < paths.length; i ++ ) {
+
+			var path = paths[ i ];
+
+			mesh.material = new MeshBasicMaterial( {
+				color: marker.color,
+				side: DoubleSide,
+				depthWrite: false
+			} );
+
+			var shapes = path.toShapes( true );
+
+        for ( var j = 0; j < shapes.length; j ++ ) {
+
+          var shape = shapes[ j ];
+          mesh.geometry = new ShapeBufferGeometry( shape );
+
+        }
+		}
+  });
                 break;
             case MarkerType.Dot:
             default:
