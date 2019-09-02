@@ -85,6 +85,7 @@ export default function useMarkers<T>(
               );
               mesh.material = new MeshLambertMaterial({
                 color,
+                alphaMap: 'https://www.edharriss.com/tutorials/tutorial_xsi_bumpmap_mixing/bumpmap_mixing_files/test_b_check.jpg',
               });
               break;
             case MarkerType.Dot:
