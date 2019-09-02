@@ -1,0 +1,4 @@
+/// <reference types="react" />
+import OrbitControls from 'three-orbitcontrols';
+import { CameraOptions, Coordinates, FocusOptions, LightOptions, Size } from '../types';
+export default function useCamera<T>({ autoRotateSpeed, distanceRadiusScale, enableAutoRotate, enableRotate, enableZoom, maxDistanceRadiusScale, maxPolarAngle, minPolarAngle, rotateSpeed, zoomSpeed, }: CameraOptions, { ambientLightColor, ambientLightIntensity, pointLightColor, pointLightIntensity, pointLightPositionRadiusScales, }: LightOptions, { animationDuration: focusAnimationDuration, distanceRadiusScale: focusDistanceRadiusScale, easingFunction: focusEasingFunction, }: FocusOptions, rendererRef: React.RefObject<THREE.WebGLRenderer>, size: Size, lookAt: Coordinates, focus?: Coordinates): [React.RefObject<THREE.PerspectiveCamera>, React.RefObject<OrbitControls>];

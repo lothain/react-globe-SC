@@ -294,7 +294,6 @@ function ReactGlobe({
     }
 
     function animate() {
-      renderer.sortObjects = false;
       renderer.render(scene, cameraRef.current);
       TWEEN.update();
       orbitControlsRef.current.update();
