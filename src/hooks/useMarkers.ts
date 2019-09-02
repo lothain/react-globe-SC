@@ -12,6 +12,8 @@ import {
   TextureLoader,
   DoubleSide,
   ShapeBufferGeometry,
+  Shape,
+  Scene,
 } from 'three';
 import SVGLoader from 'three-svg-loader';
 import { createGlowMesh } from 'three-glow-mesh';
@@ -30,6 +32,7 @@ import {
   MarkerType,
 } from '../types';
 import { coordinatesToPosition, tween } from '../utils';
+import mineIcon from './mining-king-no-tools.svg'
 
 interface Handlers {
   onClick: MarkerCallback;
@@ -92,6 +95,36 @@ export default function useMarkers<T>(
                 alphaMap: alphaT,
               });
               break;
+            case MarkerType.Mine:
+              var loader = new SVGLoader();
+                loader.load(mineIcon),
+                  function ( data ) {
+                    var paths = data.paths;
+                    var group = new Group();
+
+                    for ( var i = 0; i < paths.length; i ++ ) {
+                      var path = paths[ i ];
+
+                      var material = new MeshBasicMaterial( {
+                        color: path.color,
+                        side: DoubleSide,
+                        depthWrite: false
+                      });
+
+                      var shapes = path.toShapes( true );
+
+                      for ( var j = 0; j < shapes.length; j ++ ) {
+
+                        var shape = shapes[ j ];
+                        var geometry = new ShapeBufferGeometry( shape );
+                        group.add ( mesh );
+                      }
+                    }
+
+                  mesh.material = material;
+                  mesh.geometry = geometry;
+                }
+                  break;
             case MarkerType.Dot:
             default:
               mesh.geometry = new SphereGeometry(
