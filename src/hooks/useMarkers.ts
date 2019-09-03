@@ -12,8 +12,7 @@ import {
   TextureLoader,
   DoubleSide,
   ShapeBufferGeometry,
-  Shape,
-  Scene,
+  Color,
 } from 'three';
 import SVGLoader from 'three-svg-loader';
 import { createGlowMesh } from 'three-glow-mesh';
@@ -97,44 +96,61 @@ export default function useMarkers<T>(
               markerObject = mesh;
               break;
             case MarkerType.Mine:
-              var loader = new SVGLoader();
-                loader.load('../squareorange.svg',
-                  function ( data ) {
-                    var paths = data.paths;
-
-                    for ( var i = 0; i < paths.length; i ++ ) {
-                      var path = paths[ i ];
-
+                var guiData = {
+                  currentURL: 'models/svg/tiger.svg',
+                  drawFillShapes: true,
+                  drawStrokes: true,
+                  fillShapesWireframe: false,
+                  strokesWireframe: false
+                };
+                var loader = new SVGLoader();
+                loader.load( './mining-king-no-tools.svg', function ( data ) {
+                  var paths = data.paths;
+                  var meshGroup = new Group();
+                  meshGroup.scale.multiplyScalar( 0.25 );
+                  meshGroup.position.x = - 70;
+                  meshGroup.position.y = 70;
+                  meshGroup.scale.y *= - 1;
+                  for ( var i = 0; i < paths.length; i ++ ) {
+                    var path = paths[ i ];
+                    var fillColor = path.userData.style.fill;
+                    if ( guiData.drawFillShapes && fillColor !== undefined && fillColor !== 'none' ) {
                       var material = new MeshBasicMaterial( {
-                        color: path.color,
+                        color: new Color().setStyle( fillColor ),
+                        opacity: path.userData.style.fillOpacity,
+                        transparent: path.userData.style.fillOpacity < 1,
                         side: DoubleSide,
-                        depthWrite: false
-                      });
-
+                        depthWrite: false,
+                      } );
                       var shapes = path.toShapes( true );
-
                       for ( var j = 0; j < shapes.length; j ++ ) {
-
                         var shape = shapes[ j ];
                         var geometry = new ShapeBufferGeometry( shape );
                         var mesh = new Mesh( geometry, material );
                         meshGroup.add( mesh );
                       }
                     }
-                },
-                // called when loading is in progresses
-                function ( xhr ) {
-
-                  console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-                },
-                // called when loading has errors
-                function ( error ) {
-
-                  console.log( 'An error happened' );
-
-                }
-                )
+                    var strokeColor = path.userData.style.stroke;
+                    if ( guiData.drawStrokes && strokeColor !== undefined && strokeColor !== 'none' ) {
+                      var material = new MeshBasicMaterial( {
+                        color: new Color().setStyle( strokeColor ),
+                        opacity: path.userData.style.strokeOpacity,
+                        transparent: path.userData.style.strokeOpacity < 1,
+                        side: DoubleSide,
+                        depthWrite: false,
+                        wireframe: guiData.strokesWireframe
+                      } );
+                      for ( var j = 0, jl = path.subPaths.length; j < jl; j ++ ) {
+                        var subPath = path.subPaths[ j ];
+                        var geometry = SVGLoader.pointsToStroke( subPath.getPoints(), path.userData.style );
+                        if ( geometry ) {
+                          var mesh = new Mesh( geometry, material );
+                          meshGroup.add( mesh );
+                        }
+                      }
+                    }
+                  }
+                } );
                 markerObject = meshGroup;
                   break;
             case MarkerType.Dot:
