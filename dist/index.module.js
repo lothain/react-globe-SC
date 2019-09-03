@@ -430,7 +430,7 @@ function useMarkers(markers, _a, _b) {
                             markerObject = mesh_1;
                             break;
                         case MarkerType.Mine:
-                            var spriteMap = new TextureLoader().load("../test_b_check.jpg");
+                            var spriteMap = new TextureLoader().load("../pickaxe.png");
                             var spriteMaterial = new SpriteMaterial({ map: spriteMap, color: 0xffffff });
                             var sprite = new Sprite(spriteMaterial);
                             markerObject = sprite;

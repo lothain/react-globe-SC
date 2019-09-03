@@ -437,7 +437,7 @@ function useMarkers(markers, _a, _b) {
                             markerObject = mesh_1;
                             break;
                         case MarkerType.Mine:
-                            var spriteMap = new three.TextureLoader().load("../test_b_check.jpg");
+                            var spriteMap = new three.TextureLoader().load("../pickaxe.png");
                             var spriteMaterial = new three.SpriteMaterial({ map: spriteMap, color: 0xffffff });
                             var sprite = new three.Sprite(spriteMaterial);
                             markerObject = sprite;
