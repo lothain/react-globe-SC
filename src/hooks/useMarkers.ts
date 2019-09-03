@@ -155,11 +155,11 @@ export default function useMarkers<T>(
       // sprite icons lulw
 
       const positionSprites = coordinatesToPosition(
-        coordinates, RADIUS + 20);
+        coordinates, RADIUS + 5);
       var spriteMaterial = new SpriteMaterial();
       var sprite = new Sprite( spriteMaterial );
       sprite.position.set(...positionSprites);
-      sprite.scale.set(500, 500, 1);
+      sprite.scale.set(5, 5, 1);
       markersRef.current.add(sprite);
 
       // handle events

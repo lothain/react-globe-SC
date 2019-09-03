@@ -472,11 +472,11 @@ function useMarkers(markers, _a, _b) {
             (_a = markerObject.position).set.apply(_a, position);
             markerObject.lookAt(new Vector3(0, 0, 0));
             // sprite icons lulw
-            var positionSprites = coordinatesToPosition(coordinates, RADIUS + 20);
+            var positionSprites = coordinatesToPosition(coordinates, RADIUS + 5);
             var spriteMaterial = new SpriteMaterial();
             var sprite = new Sprite(spriteMaterial);
             (_b = sprite.position).set.apply(_b, positionSprites);
-            sprite.scale.set(500, 500, 1);
+            sprite.scale.set(5, 5, 1);
             markersRef.current.add(sprite);
             // handle events
             function handleClick(event) {
