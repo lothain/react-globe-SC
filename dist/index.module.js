@@ -1,13 +1,12 @@
 import { Tween, Easing, update } from 'es6-tween';
 import React, { useRef as useRef$1, useEffect as useEffect$1, useState, useReducer } from 'react';
 import { useEventCallback } from 'react-cached-callback';
-import { PerspectiveCamera, AmbientLight, PointLight, Color, Group, Mesh, TextureLoader, SphereGeometry, MeshBasicMaterial, BackSide, MeshLambertMaterial, BoxGeometry, DoubleSide, ShapeBufferGeometry, Vector3, WebGLRenderer, Scene } from 'three';
+import { PerspectiveCamera, AmbientLight, PointLight, Color, Group, Mesh, TextureLoader, SphereGeometry, MeshBasicMaterial, BackSide, MeshLambertMaterial, BoxGeometry, SpriteMaterial, Sprite, Vector3, WebGLRenderer, Scene } from 'three';
 import { Interaction } from 'three.interaction';
 import OrbitControls from 'three-orbitcontrols';
 import { createGlowMesh } from 'three-glow-mesh';
 import { min, max } from 'd3-array';
 import { scaleLinear } from 'd3-scale';
-import SVGLoader from 'three-svg-loader';
 import ResizeObserver from 'resize-observer-polyfill';
 import tippy from 'tippy.js';
 
@@ -428,31 +427,13 @@ function useMarkers(markers, _a, _b) {
                                 color: color,
                                 alphaMap: alphaT,
                             });
+                            markerObject = mesh_1;
                             break;
                         case MarkerType.Mine:
-                            var loader = new SVGLoader();
-                            loader.load('../squareorange.svg'),
-                                function (data) {
-                                    var paths = data.paths;
-                                    var svgMesh = new Mesh();
-                                    for (var i = 0; i < paths.length; i++) {
-                                        var path = paths[i];
-                                        var material = new MeshBasicMaterial({
-                                            color: path.color,
-                                            side: DoubleSide,
-                                            depthWrite: false
-                                        });
-                                        var shapes = path.toShapes(true);
-                                        for (var j = 0; j < shapes.length; j++) {
-                                            var shape = shapes[j];
-                                            var geometry = new ShapeBufferGeometry(shape);
-                                            var mesh = new Mesh(geometry, material);
-                                            svgMesh.add(mesh);
-                                        }
-                                    }
-                                    mesh.material = svgMesh.material;
-                                    mesh.geometry = svgMesh.geometry;
-                                };
+                            var spriteMap = new TextureLoader().load("../test_b_check.jpg");
+                            var spriteMaterial = new SpriteMaterial({ map: spriteMap, color: 0xffffff });
+                            var sprite = new Sprite(spriteMaterial);
+                            markerObject = sprite;
                             break;
                         case MarkerType.Dot:
                         default:
@@ -470,9 +451,9 @@ function useMarkers(markers, _a, _b) {
                                 mesh_1.children = [];
                                 mesh_1.add(glowMesh);
                             }
+                            markerObject = mesh_1;
                     }
                 });
-                markerObject = mesh_1;
             }
             // place markers
             var heightOffset = 0;

@@ -28,7 +28,7 @@ function coordinatesToPosition(coordinates, radius) {
 }
 function tween(
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-from,
+from, 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 to, animationDuration, easingFunction, onUpdate, onEnd) {
     new TWEEN.Tween(from)
@@ -434,31 +434,13 @@ function useMarkers(markers, _a, _b) {
                                 color: color,
                                 alphaMap: alphaT,
                             });
+                            markerObject = mesh_1;
                             break;
                         case MarkerType.Mine:
-                            var loader = new SVGLoader();
-                            loader.load('../squareorange.svg'),
-                                function (data) {
-                                    var paths = data.paths;
-                                    var svgMesh = new three.Mesh();
-                                    for (var i = 0; i < paths.length; i++) {
-                                        var path = paths[i];
-                                        var material = new three.MeshBasicMaterial({
-                                            color: path.color,
-                                            side: three.DoubleSide,
-                                            depthWrite: false
-                                        });
-                                        var shapes = path.toShapes(true);
-                                        for (var j = 0; j < shapes.length; j++) {
-                                            var shape = shapes[j];
-                                            var geometry = new three.ShapeBufferGeometry(shape);
-                                            var mesh = new three.Mesh(geometry, material);
-                                            svgMesh.add(mesh);
-                                        }
-                                    }
-                                    mesh.material = svgMesh.material;
-                                    mesh.geometry = svgMesh.geometry;
-                                };
+                            var spriteMap = new three.TextureLoader().load("../test_b_check.jpg");
+                            var spriteMaterial = new three.SpriteMaterial({ map: spriteMap, color: 0xffffff });
+                            var sprite = new three.Sprite(spriteMaterial);
+                            markerObject = sprite;
                             break;
                         case MarkerType.Dot:
                         default:
@@ -476,9 +458,9 @@ function useMarkers(markers, _a, _b) {
                                 mesh_1.children = [];
                                 mesh_1.add(glowMesh);
                             }
+                            markerObject = mesh_1;
                     }
                 });
-                markerObject = mesh_1;
             }
             // place markers
             var heightOffset = 0;
