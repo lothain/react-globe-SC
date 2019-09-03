@@ -96,7 +96,7 @@ export default function useMarkers<T>(
               markerObject = mesh;
               break;
               case MarkerType.Mine:
-                  var spriteMap = new TextureLoader().load ( "../pickaxe.png" );
+                  var spriteMap = new TextureLoader().load ( "../test_b_check.jpg" );
                   var spriteMaterial = new SpriteMaterial( { map: spriteMap, color: 0xffffff } );
                   var sprite = new Sprite ( spriteMaterial );
                   markerObject = sprite;
