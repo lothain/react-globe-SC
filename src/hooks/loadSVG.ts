@@ -18,7 +18,8 @@ var guiData = {
 export default function loadSVG( url ) {
 var loader = new SVGLoader;
 var meshGroup = new Group;
-loader.load( url, function (data) {
+var urlGiven = url
+loader.load( urlGiven, function (data) {
   var paths = data.paths;
   meshGroup.scale.multiplyScalar( 0.25 );
   meshGroup.position.x = - 70;
