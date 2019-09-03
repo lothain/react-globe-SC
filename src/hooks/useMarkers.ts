@@ -32,7 +32,6 @@ import {
   MarkerType,
 } from '../types';
 import { coordinatesToPosition, tween } from '../utils';
-import mineIcon from './mining-king-no-tools.svg'
 
 interface Handlers {
   onClick: MarkerCallback;
@@ -97,10 +96,10 @@ export default function useMarkers<T>(
               break;
             case MarkerType.Mine:
               var loader = new SVGLoader();
-                loader.load(mineIcon),
+                loader.load('./mining-king-no-tools.svg'),
                   function ( data ) {
                     var paths = data.paths;
-                    var group = new Group();
+                    var svgMesh = new Mesh();
 
                     for ( var i = 0; i < paths.length; i ++ ) {
                       var path = paths[ i ];
@@ -117,12 +116,13 @@ export default function useMarkers<T>(
 
                         var shape = shapes[ j ];
                         var geometry = new ShapeBufferGeometry( shape );
-                        group.add ( mesh );
+                        var mesh = new Mesh( geometry, material );
+                        svgMesh.add( mesh );
                       }
                     }
 
-                  mesh.material = material;
-                  mesh.geometry = geometry;
+                  mesh.material = svgMesh.material;
+                  mesh.geometry = svgMesh.geometry;
                 }
                   break;
             case MarkerType.Dot:

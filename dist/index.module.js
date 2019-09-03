@@ -1,7 +1,7 @@
 import { Tween, Easing, update } from 'es6-tween';
 import React, { useRef as useRef$1, useEffect as useEffect$1, useState, useReducer } from 'react';
 import { useEventCallback } from 'react-cached-callback';
-import { PerspectiveCamera, AmbientLight, PointLight, Color, Group, Mesh, TextureLoader, SphereGeometry, MeshBasicMaterial, BackSide, MeshLambertMaterial, BoxGeometry, Vector3, WebGLRenderer, Scene } from 'three';
+import { PerspectiveCamera, AmbientLight, PointLight, Color, Group, Mesh, TextureLoader, SphereGeometry, MeshBasicMaterial, BackSide, MeshLambertMaterial, BoxGeometry, DoubleSide, ShapeBufferGeometry, Vector3, WebGLRenderer, Scene } from 'three';
 import { Interaction } from 'three.interaction';
 import OrbitControls from 'three-orbitcontrols';
 import { createGlowMesh } from 'three-glow-mesh';
@@ -411,7 +411,6 @@ function useMarkers(markers, _a, _b) {
             var shouldUseCustomMarker = renderer !== undefined;
             var color = marker.color || MARKER_DEFAULT_COLOR;
             var alphaT = new TextureLoader().load("../test_b_check.jpg");
-            var iconLoader = new SVGLoader().load("../mining-king-no-tools.svg");
             var size = sizeScale(value);
             var markerObject;
             if (shouldUseCustomMarker) {
@@ -431,8 +430,29 @@ function useMarkers(markers, _a, _b) {
                             });
                             break;
                         case MarkerType.Mine:
-                            mesh_1.geometry = iconLoader.mesh.geometry;
-                            mesh_1.material = iconLoader.mesh.material;
+                            var loader = new SVGLoader();
+                            loader.load('./mining-king-no-tools.svg'),
+                                function (data) {
+                                    var paths = data.paths;
+                                    var svgMesh = new Mesh();
+                                    for (var i = 0; i < paths.length; i++) {
+                                        var path = paths[i];
+                                        var material = new MeshBasicMaterial({
+                                            color: path.color,
+                                            side: DoubleSide,
+                                            depthWrite: false
+                                        });
+                                        var shapes = path.toShapes(true);
+                                        for (var j = 0; j < shapes.length; j++) {
+                                            var shape = shapes[j];
+                                            var geometry = new ShapeBufferGeometry(shape);
+                                            var mesh = new Mesh(geometry, material);
+                                            svgMesh.add(mesh);
+                                        }
+                                    }
+                                    mesh.material = svgMesh.material;
+                                    mesh.geometry = svgMesh.geometry;
+                                };
                             break;
                         case MarkerType.Dot:
                         default:

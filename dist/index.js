@@ -418,7 +418,6 @@ function useMarkers(markers, _a, _b) {
             var shouldUseCustomMarker = renderer !== undefined;
             var color = marker.color || MARKER_DEFAULT_COLOR;
             var alphaT = new three.TextureLoader().load("../test_b_check.jpg");
-            var iconLoader = new SVGLoader().load("../mining-king-no-tools.svg");
             var size = sizeScale(value);
             var markerObject;
             if (shouldUseCustomMarker) {
@@ -438,8 +437,29 @@ function useMarkers(markers, _a, _b) {
                             });
                             break;
                         case MarkerType.Mine:
-                            mesh_1.geometry = iconLoader.mesh.geometry;
-                            mesh_1.material = iconLoader.mesh.material;
+                            var loader = new SVGLoader();
+                            loader.load('./mining-king-no-tools.svg'),
+                                function (data) {
+                                    var paths = data.paths;
+                                    var svgMesh = new three.Mesh();
+                                    for (var i = 0; i < paths.length; i++) {
+                                        var path = paths[i];
+                                        var material = new three.MeshBasicMaterial({
+                                            color: path.color,
+                                            side: three.DoubleSide,
+                                            depthWrite: false
+                                        });
+                                        var shapes = path.toShapes(true);
+                                        for (var j = 0; j < shapes.length; j++) {
+                                            var shape = shapes[j];
+                                            var geometry = new three.ShapeBufferGeometry(shape);
+                                            var mesh = new three.Mesh(geometry, material);
+                                            svgMesh.add(mesh);
+                                        }
+                                    }
+                                    mesh.material = svgMesh.material;
+                                    mesh.geometry = svgMesh.geometry;
+                                };
                             break;
                         case MarkerType.Dot:
                         default:
