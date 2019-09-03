@@ -474,7 +474,7 @@ function useMarkers(markers, _a, _b) {
             // sprite icons lulw
             if (type === MarkerType.Mine) {
                 var positionSprites = coordinatesToPosition(coordinates, RADIUS + 5);
-                var spriteMap = new TextureLoader().load('../pickaxe.png');
+                var spriteMap = new TextureLoader().load('../checker.png');
                 var spriteMaterial = new SpriteMaterial({ map: spriteMap, transparent: true, alphaTest: 0.5 });
                 var spriteMaterial = new SpriteMaterial();
                 var sprite = new Sprite(spriteMaterial);
