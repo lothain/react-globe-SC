@@ -417,9 +417,9 @@ function useMarkers(markers, _a, _b) {
             }
             else {
                 var from_1 = { size: 0 };
-                var to_1 = { size: size };
+                var to = { size: size };
                 var mesh_1 = new Mesh();
-                tween(from_1, to_1, animationDuration, ['Linear', 'None'], function () {
+                tween(from_1, to, animationDuration, ['Linear', 'None'], function () {
                     switch (type) {
                         case MarkerType.Bar:
                             mesh_1.geometry = new BoxGeometry(unitRadius, unitRadius, from_1.size);
@@ -429,7 +429,7 @@ function useMarkers(markers, _a, _b) {
                             });
                             break;
                         case MarkerType.Mine:
-                            mesh_1.geometry = new PlaneGeometry(to_1.size, to_1.size);
+                            mesh_1.geometry = new PlaneGeometry(unitRadius, unitRadius);
                             mesh_1.material = new MeshLambertMaterial({
                                 color: color,
                                 alphaMap: alphaT,
