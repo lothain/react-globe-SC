@@ -440,6 +440,7 @@ function useMarkers(markers, _a, _b) {
                             var spriteMap = new three.TextureLoader().load("../pickaxe.png");
                             var spriteMaterial = new three.SpriteMaterial({ map: spriteMap, color: 0xffffff });
                             var sprite = new three.Sprite(spriteMaterial);
+                            sprite.position.set(3, 0, 0);
                             markerObject = sprite;
                             break;
                         case MarkerType.Dot:

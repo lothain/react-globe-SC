@@ -99,6 +99,8 @@ export default function useMarkers<T>(
                   var spriteMap = new TextureLoader().load ( "../pickaxe.png" );
                   var spriteMaterial = new SpriteMaterial( { map: spriteMap, color: 0xffffff } );
                   var sprite = new Sprite ( spriteMaterial );
+                  sprite.position.set(3, 0, 0);
+
                   markerObject = sprite;
                   break;
             case MarkerType.Dot:
