@@ -427,7 +427,6 @@ function useMarkers(markers, _a, _b) {
                                 color: color,
                                 alphaMap: alphaT,
                             });
-                            markerObject = mesh_1;
                             break;
                         case MarkerType.Dot:
                         default:
@@ -445,9 +444,9 @@ function useMarkers(markers, _a, _b) {
                                 mesh_1.children = [];
                                 mesh_1.add(glowMesh);
                             }
-                            markerObject = mesh_1;
                     }
                 });
+                markerObject = mesh_1;
             }
             // place markers
             var heightOffset = 0;

@@ -10,9 +10,6 @@ import {
   SphereGeometry,
   Vector3,
   TextureLoader,
-  DoubleSide,
-  ShapeBufferGeometry,
-  Color,
 } from 'three';
 import { createGlowMesh } from 'three-glow-mesh';
 import {
@@ -91,9 +88,7 @@ export default function useMarkers<T>(
                 color,
                 alphaMap: alphaT,
               });
-              markerObject = mesh;
               break;
-
             case MarkerType.Dot:
             default:
               mesh.geometry = new SphereGeometry(
@@ -117,9 +112,9 @@ export default function useMarkers<T>(
                 mesh.children = [];
                 mesh.add(glowMesh);
               }
-              markerObject = mesh;
           }
         });
+        markerObject = mesh;
       }
 
       // place markers
