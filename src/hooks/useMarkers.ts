@@ -81,6 +81,7 @@ export default function useMarkers<T>(
         let from = { size: 0 };
         const to = { size };
         const mesh = new Mesh();
+        var meshGroup = new Group();
         tween(from, to, animationDuration, ['Linear', 'None'], () => {
           switch (type) {
             case MarkerType.Bar:
@@ -93,13 +94,13 @@ export default function useMarkers<T>(
                 color,
                 alphaMap: alphaT,
               });
+              markerObject = mesh;
               break;
             case MarkerType.Mine:
               var loader = new SVGLoader();
                 loader.load('../squareorange.svg'),
                   function ( data ) {
                     var paths = data.paths;
-                    var svgMesh = new Mesh();
 
                     for ( var i = 0; i < paths.length; i ++ ) {
                       var path = paths[ i ];
@@ -117,13 +118,11 @@ export default function useMarkers<T>(
                         var shape = shapes[ j ];
                         var geometry = new ShapeBufferGeometry( shape );
                         var mesh = new Mesh( geometry, material );
-                        svgMesh.add( mesh );
+                        meshGroup.add( mesh );
                       }
                     }
-
-                  mesh.material = svgMesh.material;
-                  mesh.geometry = svgMesh.geometry;
                 }
+                markerObject = meshGroup;
                   break;
             case MarkerType.Dot:
             default:
@@ -148,9 +147,9 @@ export default function useMarkers<T>(
                 mesh.children = [];
                 mesh.add(glowMesh);
               }
+              markerObject = mesh;
           }
         });
-        markerObject = mesh;
       }
 
       // place markers
