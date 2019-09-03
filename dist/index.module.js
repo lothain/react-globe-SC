@@ -472,8 +472,7 @@ function useMarkers(markers, _a, _b) {
             (_a = markerObject.position).set.apply(_a, position);
             markerObject.lookAt(new Vector3(0, 0, 0));
             // sprite icons lulw
-            var spriteMap = new TextureLoader().load("../test_b_check.jpg");
-            var spriteMaterial = new SpriteMaterial({ map: spriteMap, color: 0xffffff });
+            var spriteMaterial = new SpriteMaterial();
             var sprite = new Sprite(spriteMaterial);
             (_b = sprite.position).set.apply(_b, position);
             // handle events

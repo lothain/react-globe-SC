@@ -152,8 +152,8 @@ export default function useMarkers<T>(
       markerObject.lookAt(new Vector3(0, 0, 0));
 
       // sprite icons lulw
-      var spriteMap = new TextureLoader().load( "../test_b_check.jpg" );
-      var spriteMaterial = new SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+
+      var spriteMaterial = new SpriteMaterial();
       var sprite = new Sprite( spriteMaterial );
       sprite.position.set(...position);
 
