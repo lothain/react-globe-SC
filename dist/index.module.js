@@ -475,10 +475,10 @@ function useMarkers(markers, _a, _b) {
             if (type === MarkerType.Mine) {
                 var positionSprites = coordinatesToPosition(coordinates, RADIUS + 5);
                 var spriteMap = new TextureLoader().load('../checker.png');
-                var spriteMaterial = new SpriteMaterial({ map: spriteMap, transparent: false, alphaTest: 0.5 });
+                var spriteMaterial = new SpriteMaterial({ map: spriteMap, color: color });
                 var sprite = new Sprite(spriteMaterial);
                 (_b = sprite.position).set.apply(_b, positionSprites);
-                sprite.scale.set(200, 200, 1);
+                sprite.scale.set(25, 25, 1);
                 markersRef.current.add(sprite);
             }
             // handle events
