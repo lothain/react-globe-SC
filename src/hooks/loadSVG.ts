@@ -16,7 +16,7 @@ var guiData = {
 };
 
 export default function loadSVG( url ) {
-var loader = new SVGLoader;
+var loader = new SVGLoader();
 var meshGroup = new Group;
 var urlGiven = url
 loader.load( urlGiven, function (data) {
