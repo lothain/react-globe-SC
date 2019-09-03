@@ -82,6 +82,8 @@ export default function useMarkers<T>(
         const to = { size };
         const mesh = new Mesh();
         var meshGroup = new Group();
+        meshGroup.scale.multiplyScalar( 0.25 );
+        meshGroup.scale.y *= - 1;
         tween(from, to, animationDuration, ['Linear', 'None'], () => {
           switch (type) {
             case MarkerType.Bar:
