@@ -479,9 +479,10 @@ function useMarkers(markers, _a, _b) {
             (_a = markerObject.position).set.apply(_a, position);
             markerObject.lookAt(new three.Vector3(0, 0, 0));
             // sprite icons lulw
+            var positionSprites = coordinatesToPosition(coordinates, RADIUS + 20);
             var spriteMaterial = new three.SpriteMaterial();
             var sprite = new three.Sprite(spriteMaterial);
-            (_b = sprite.position).set.apply(_b, position);
+            (_b = sprite.position).set.apply(_b, positionSprites);
             sprite.scale.set(500, 500, 1);
             // handle events
             function handleClick(event) {
