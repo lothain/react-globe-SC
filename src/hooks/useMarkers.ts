@@ -159,7 +159,8 @@ export default function useMarkers<T>(
       var spriteMaterial = new SpriteMaterial();
       var sprite = new Sprite( spriteMaterial );
       sprite.position.set(...positionSprites);
-      sprite.scale.set(500, 500, 1)
+      sprite.scale.set(500, 500, 1);
+      markersRef.current.add(sprite);
 
       // handle events
       function handleClick(event: InteractionEvent) {
