@@ -66,7 +66,7 @@ export default function useMarkers<T>(
       const shouldUseCustomMarker = renderer !== undefined;
 
       const color = marker.color || MARKER_DEFAULT_COLOR;
-      const alphaT = new TextureLoader().load("../test_b_check.jpg")
+      const alphaT = new TextureLoader().load("../checker.png")
       const size = sizeScale(value);
       let markerObject: InteractableObject3D;
 
