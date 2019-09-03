@@ -157,7 +157,7 @@ export default function useMarkers<T>(
       const positionSprites = coordinatesToPosition(
         coordinates, RADIUS + 5);
       var spriteMap = new TextureLoader().load( '../pickaxe.png' );
-      var spriteMaterial = new SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+      var spriteMaterial = new SpriteMaterial( { map: spriteMap, transparent: true, alphaTest: 0.5 } );
       var spriteMaterial = new SpriteMaterial();
       var sprite = new Sprite( spriteMaterial );
       sprite.position.set(...positionSprites);
