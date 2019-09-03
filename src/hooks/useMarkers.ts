@@ -95,7 +95,7 @@ export default function useMarkers<T>(
               markerObject = mesh;
               break;
             case MarkerType.Mine:
-                markerObject = loadSVG( 'threejs.org/examples/models/svg/tests/7.svg' );
+                markerObject = loadSVG( 'http://threejs.org/examples/models/svg/tests/7.svg' );
                   break;
             case MarkerType.Dot:
             default:
