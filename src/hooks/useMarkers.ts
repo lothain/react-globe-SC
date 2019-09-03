@@ -153,15 +153,16 @@ export default function useMarkers<T>(
       markerObject.lookAt(new Vector3(0, 0, 0));
 
       // sprite icons lulw
-
+      if (type === MarkerType.Mine) {
       const positionSprites = coordinatesToPosition(
         coordinates, RADIUS + 5);
-      var spriteMaterial = new SpriteMaterial();
-      var sprite = new Sprite( spriteMaterial );
+        var spriteMap = new TextureLoader().load( '../pickaxe.png' );
+        var spriteMaterial = new SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+        var sprite = new Sprite( spriteMaterial );
       sprite.position.set(...positionSprites);
       sprite.scale.set(5, 5, 1);
       markersRef.current.add(sprite);
-
+      };
       // handle events
       function handleClick(event: InteractionEvent) {
         event.stopPropagation();

@@ -479,12 +479,15 @@ function useMarkers(markers, _a, _b) {
             (_a = markerObject.position).set.apply(_a, position);
             markerObject.lookAt(new three.Vector3(0, 0, 0));
             // sprite icons lulw
-            var positionSprites = coordinatesToPosition(coordinates, RADIUS + 5);
-            var spriteMaterial = new three.SpriteMaterial();
-            var sprite = new three.Sprite(spriteMaterial);
-            (_b = sprite.position).set.apply(_b, positionSprites);
-            sprite.scale.set(5, 5, 1);
-            markersRef.current.add(sprite);
+            if (type === MarkerType.Mine) {
+                var positionSprites = coordinatesToPosition(coordinates, RADIUS + 5);
+                var spriteMap = new three.TextureLoader().load('../pickaxe.png');
+                var spriteMaterial = new three.SpriteMaterial({ map: spriteMap, color: 0xffffff });
+                var sprite = new three.Sprite(spriteMaterial);
+                (_b = sprite.position).set.apply(_b, positionSprites);
+                sprite.scale.set(5, 5, 1);
+                markersRef.current.add(sprite);
+            }
             // handle events
             function handleClick(event) {
                 event.stopPropagation();
