@@ -436,13 +436,6 @@ function useMarkers(markers, _a, _b) {
                             });
                             markerObject = mesh_1;
                             break;
-                        case MarkerType.Mine:
-                            var spriteMap = new three.TextureLoader().load("../pickaxe.png");
-                            var spriteMaterial = new three.SpriteMaterial({ map: spriteMap, color: 0xffffff });
-                            var sprite = new three.Sprite(spriteMaterial);
-                            sprite.position.set(3, 0, 0);
-                            markerObject = sprite;
-                            break;
                         case MarkerType.Dot:
                         default:
                             mesh_1.geometry = new three.SphereGeometry(from_1.size, MARKER_SEGMENTS, MARKER_SEGMENTS);

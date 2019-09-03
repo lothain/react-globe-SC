@@ -10,8 +10,6 @@ import {
   SphereGeometry,
   Vector3,
   TextureLoader,
-  Sprite,
-  SpriteMaterial,
   DoubleSide,
   ShapeBufferGeometry,
   Color,
@@ -95,14 +93,7 @@ export default function useMarkers<T>(
               });
               markerObject = mesh;
               break;
-              case MarkerType.Mine:
-                  var spriteMap = new TextureLoader().load ( "../pickaxe.png" );
-                  var spriteMaterial = new SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-                  var sprite = new Sprite ( spriteMaterial );
-                  sprite.position.set(3, 0, 0);
 
-                  markerObject = sprite;
-                  break;
             case MarkerType.Dot:
             default:
               mesh.geometry = new SphereGeometry(

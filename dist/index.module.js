@@ -1,7 +1,7 @@
 import { Tween, Easing, update } from 'es6-tween';
 import React, { useRef as useRef$1, useEffect as useEffect$1, useState, useReducer } from 'react';
 import { useEventCallback } from 'react-cached-callback';
-import { PerspectiveCamera, AmbientLight, PointLight, Color, Group, Mesh, TextureLoader, SphereGeometry, MeshBasicMaterial, BackSide, MeshLambertMaterial, BoxGeometry, SpriteMaterial, Sprite, Vector3, WebGLRenderer, Scene } from 'three';
+import { PerspectiveCamera, AmbientLight, PointLight, Color, Group, Mesh, TextureLoader, SphereGeometry, MeshBasicMaterial, BackSide, MeshLambertMaterial, BoxGeometry, Vector3, WebGLRenderer, Scene } from 'three';
 import { Interaction } from 'three.interaction';
 import OrbitControls from 'three-orbitcontrols';
 import { createGlowMesh } from 'three-glow-mesh';
@@ -428,13 +428,6 @@ function useMarkers(markers, _a, _b) {
                                 alphaMap: alphaT,
                             });
                             markerObject = mesh_1;
-                            break;
-                        case MarkerType.Mine:
-                            var spriteMap = new TextureLoader().load("../pickaxe.png");
-                            var spriteMaterial = new SpriteMaterial({ map: spriteMap, color: 0xffffff });
-                            var sprite = new Sprite(spriteMaterial);
-                            sprite.position.set(3, 0, 0);
-                            markerObject = sprite;
                             break;
                         case MarkerType.Dot:
                         default:
