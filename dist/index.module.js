@@ -474,10 +474,12 @@ function useMarkers(markers, _a, _b) {
             // sprite icons lulw
             if (type === MarkerType.Mine) {
                 var positionSprites = coordinatesToPosition(coordinates, RADIUS + 5);
+                var spriteMap = new TextureLoader().load('../pickaxe.png');
+                var spriteMaterial = new SpriteMaterial({ map: spriteMap, color: 0xffffff });
                 var spriteMaterial = new SpriteMaterial();
                 var sprite = new Sprite(spriteMaterial);
                 (_b = sprite.position).set.apply(_b, positionSprites);
-                sprite.scale.set(5, 5, 1);
+                sprite.scale.set(200, 200, 1);
                 markersRef.current.add(sprite);
             }
             // handle events
