@@ -14,7 +14,6 @@ import {
   ShapeBufferGeometry,
   Color,
 } from 'three';
-import loadSVG from './loadSVG';
 import { createGlowMesh } from 'three-glow-mesh';
 import {
   MARKER_DEFAULT_COLOR,
@@ -94,9 +93,6 @@ export default function useMarkers<T>(
               });
               markerObject = mesh;
               break;
-            case MarkerType.Mine:
-                markerObject = loadSVG( 'http://threejs.org/examples/models/svg/tests/7.svg' );
-                  break;
             case MarkerType.Dot:
             default:
               mesh.geometry = new SphereGeometry(
