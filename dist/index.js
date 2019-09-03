@@ -14,7 +14,6 @@ var OrbitControls = _interopDefault(require('three-orbitcontrols'));
 var threeGlowMesh = require('three-glow-mesh');
 var d3Array = require('d3-array');
 var d3Scale = require('d3-scale');
-var SVGLoader = _interopDefault(require('three-svg-loader'));
 var ResizeObserver = _interopDefault(require('resize-observer-polyfill'));
 var tippy = _interopDefault(require('tippy.js'));
 
@@ -29,7 +28,7 @@ function coordinatesToPosition(coordinates, radius) {
 }
 function tween(
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-from, 
+from,
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 to, animationDuration, easingFunction, onUpdate, onEnd) {
     new TWEEN.Tween(from)
