@@ -1,7 +1,7 @@
 import { Tween, Easing, update } from 'es6-tween';
 import React, { useRef as useRef$1, useEffect as useEffect$1, useState, useReducer } from 'react';
 import { useEventCallback } from 'react-cached-callback';
-import { PerspectiveCamera, AmbientLight, PointLight, Color, Group, Mesh, TextureLoader, SphereGeometry, MeshBasicMaterial, BackSide, MeshLambertMaterial, BoxGeometry, Vector3, WebGLRenderer, Scene } from 'three';
+import { PerspectiveCamera, AmbientLight, PointLight, Color, Group, Mesh, TextureLoader, SphereGeometry, MeshBasicMaterial, BackSide, MeshLambertMaterial, BoxGeometry, Vector3, SpriteMaterial, Sprite, WebGLRenderer, Scene } from 'three';
 import { Interaction } from 'three.interaction';
 import OrbitControls from 'three-orbitcontrols';
 import { createGlowMesh } from 'three-glow-mesh';
@@ -405,7 +405,7 @@ function useMarkers(markers, _a, _b) {
             .range([RADIUS * radiusScaleRange[0], RADIUS * radiusScaleRange[1]]);
         markersRef.current.children = []; // clear data before adding
         markers.forEach(function (marker) {
-            var _a;
+            var _a, _b;
             var coordinates = marker.coordinates, value = marker.value;
             var shouldUseCustomMarker = renderer !== undefined;
             var color = marker.color || MARKER_DEFAULT_COLOR;
@@ -471,6 +471,11 @@ function useMarkers(markers, _a, _b) {
             var position = coordinatesToPosition(coordinates, RADIUS + heightOffset);
             (_a = markerObject.position).set.apply(_a, position);
             markerObject.lookAt(new Vector3(0, 0, 0));
+            // sprite icons lulw
+            var spriteMap = new TextureLoader().load("../test_b_check.jpg");
+            var spriteMaterial = new SpriteMaterial({ map: spriteMap, color: 0xffffff });
+            var sprite = new Sprite(spriteMaterial);
+            (_b = sprite.position).set.apply(_b, position);
             // handle events
             function handleClick(event) {
                 event.stopPropagation();

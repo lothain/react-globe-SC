@@ -10,7 +10,9 @@ import {
   SphereGeometry,
   Vector3,
   TextureLoader,
-  PlaneGeometry
+  PlaneGeometry,
+  Sprite,
+  SpriteMaterial
 } from 'three';
 import { createGlowMesh } from 'three-glow-mesh';
 import {
@@ -129,6 +131,8 @@ export default function useMarkers<T>(
         markerObject = mesh;
       }
 
+
+
       // place markers
       let heightOffset = 0;
       if (offsetRadiusScale !== undefined) {
@@ -146,6 +150,12 @@ export default function useMarkers<T>(
       );
       markerObject.position.set(...position);
       markerObject.lookAt(new Vector3(0, 0, 0));
+
+      // sprite icons lulw
+      var spriteMap = new TextureLoader().load( "../test_b_check.jpg" );
+      var spriteMaterial = new SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+      var sprite = new Sprite( spriteMaterial );
+      sprite.position.set(...position);
 
       // handle events
       function handleClick(event: InteractionEvent) {

@@ -412,7 +412,7 @@ function useMarkers(markers, _a, _b) {
             .range([RADIUS * radiusScaleRange[0], RADIUS * radiusScaleRange[1]]);
         markersRef.current.children = []; // clear data before adding
         markers.forEach(function (marker) {
-            var _a;
+            var _a, _b;
             var coordinates = marker.coordinates, value = marker.value;
             var shouldUseCustomMarker = renderer !== undefined;
             var color = marker.color || MARKER_DEFAULT_COLOR;
@@ -478,6 +478,11 @@ function useMarkers(markers, _a, _b) {
             var position = coordinatesToPosition(coordinates, RADIUS + heightOffset);
             (_a = markerObject.position).set.apply(_a, position);
             markerObject.lookAt(new three.Vector3(0, 0, 0));
+            // sprite icons lulw
+            var spriteMap = new three.TextureLoader().load("../test_b_check.jpg");
+            var spriteMaterial = new three.SpriteMaterial({ map: spriteMap, color: 0xffffff });
+            var sprite = new three.Sprite(spriteMaterial);
+            (_b = sprite.position).set.apply(_b, position);
             // handle events
             function handleClick(event) {
                 event.stopPropagation();
