@@ -438,7 +438,7 @@ function useMarkers(markers, _a, _b) {
                             break;
                         case MarkerType.Mine:
                             var loader = new SVGLoader();
-                            loader.load('./mining-king-no-tools.svg'),
+                            loader.load('../squareorange.svg'),
                                 function (data) {
                                     var paths = data.paths;
                                     var svgMesh = new three.Mesh();

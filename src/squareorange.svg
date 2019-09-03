@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="584" height="584" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <title>Black Square Rounded Corners</title>
+ <defs>
+  <filter id="filter3916" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="17.5" id="feGaussianBlur3918"/>
+  </filter>
+ </defs>
+ <metadata id="metadata3976">image/svg+xml</metadata>
+ <g>
+  <title>Layer 1</title>
+  <g id="layer1">
+   <g id="g3920">
+    <rect id="rect3894" width="500" height="500" x="41.999975" y="41.999983" ry="34.345188" filter="url(#filter3916)" fill-rule="nonzero" fill="#7f7f7f"/>
+    <rect ry="34.345188" y="29.999983" x="29.999975" height="500" width="500" id="rect3788" fill-rule="nonzero" fill="#ff7f00"/>
+    <rect id="rect3790" width="500.45374" height="205.48917" x="29.773175" y="29.773115" ry="21.932379" stroke-width="0.546288" fill-rule="nonzero" fill="#ff7f00"/>
+    <rect id="rect3802" width="500" height="500" x="29.999975" y="29.999983" ry="34.345188" fill-rule="nonzero" fill-opacity="0" fill="#ff7f00"/>
+   </g>
+  </g>
+ </g>
+</svg>
