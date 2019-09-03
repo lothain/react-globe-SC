@@ -416,7 +416,7 @@ function useMarkers(markers, _a, _b) {
             var coordinates = marker.coordinates, value = marker.value;
             var shouldUseCustomMarker = renderer !== undefined;
             var color = marker.color || MARKER_DEFAULT_COLOR;
-            var alphaT = new three.TextureLoader().load("../test_b_check.jpg");
+            var alphaT = new three.TextureLoader().load("../checker.png");
             var size = sizeScale(value);
             var markerObject;
             if (shouldUseCustomMarker) {
@@ -424,12 +424,19 @@ function useMarkers(markers, _a, _b) {
             }
             else {
                 var from_1 = { size: 0 };
-                var to = { size: size };
+                var to_1 = { size: size };
                 var mesh_1 = new three.Mesh();
-                tween(from_1, to, animationDuration, ['Linear', 'None'], function () {
+                tween(from_1, to_1, animationDuration, ['Linear', 'None'], function () {
                     switch (type) {
                         case MarkerType.Bar:
                             mesh_1.geometry = new three.BoxGeometry(unitRadius, unitRadius, from_1.size);
+                            mesh_1.material = new three.MeshLambertMaterial({
+                                color: color,
+                                alphaMap: alphaT,
+                            });
+                            break;
+                        case MarkerType.Mine:
+                            mesh_1.geometry = new three.PlaneGeometry(to_1.size, to_1.size);
                             mesh_1.material = new three.MeshLambertMaterial({
                                 color: color,
                                 alphaMap: alphaT,

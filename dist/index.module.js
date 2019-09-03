@@ -1,7 +1,7 @@
 import { Tween, Easing, update } from 'es6-tween';
 import React, { useRef as useRef$1, useEffect as useEffect$1, useState, useReducer } from 'react';
 import { useEventCallback } from 'react-cached-callback';
-import { PerspectiveCamera, AmbientLight, PointLight, Color, Group, Mesh, TextureLoader, SphereGeometry, MeshBasicMaterial, BackSide, MeshLambertMaterial, BoxGeometry, Vector3, WebGLRenderer, Scene } from 'three';
+import { PerspectiveCamera, AmbientLight, PointLight, Color, Group, Mesh, TextureLoader, SphereGeometry, MeshBasicMaterial, BackSide, MeshLambertMaterial, BoxGeometry, PlaneGeometry, Vector3, WebGLRenderer, Scene } from 'three';
 import { Interaction } from 'three.interaction';
 import OrbitControls from 'three-orbitcontrols';
 import { createGlowMesh } from 'three-glow-mesh';
@@ -409,7 +409,7 @@ function useMarkers(markers, _a, _b) {
             var coordinates = marker.coordinates, value = marker.value;
             var shouldUseCustomMarker = renderer !== undefined;
             var color = marker.color || MARKER_DEFAULT_COLOR;
-            var alphaT = new TextureLoader().load("../test_b_check.jpg");
+            var alphaT = new TextureLoader().load("../checker.png");
             var size = sizeScale(value);
             var markerObject;
             if (shouldUseCustomMarker) {
@@ -417,12 +417,19 @@ function useMarkers(markers, _a, _b) {
             }
             else {
                 var from_1 = { size: 0 };
-                var to = { size: size };
+                var to_1 = { size: size };
                 var mesh_1 = new Mesh();
-                tween(from_1, to, animationDuration, ['Linear', 'None'], function () {
+                tween(from_1, to_1, animationDuration, ['Linear', 'None'], function () {
                     switch (type) {
                         case MarkerType.Bar:
                             mesh_1.geometry = new BoxGeometry(unitRadius, unitRadius, from_1.size);
+                            mesh_1.material = new MeshLambertMaterial({
+                                color: color,
+                                alphaMap: alphaT,
+                            });
+                            break;
+                        case MarkerType.Mine:
+                            mesh_1.geometry = new PlaneGeometry(to_1.size, to_1.size);
                             mesh_1.material = new MeshLambertMaterial({
                                 color: color,
                                 alphaMap: alphaT,

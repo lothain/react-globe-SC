@@ -10,6 +10,7 @@ import {
   SphereGeometry,
   Vector3,
   TextureLoader,
+  PlaneGeometry
 } from 'three';
 import { createGlowMesh } from 'three-glow-mesh';
 import {
@@ -89,6 +90,16 @@ export default function useMarkers<T>(
                 alphaMap: alphaT,
               });
               break;
+              case MarkerType.Mine:
+                  mesh.geometry = new PlaneGeometry(
+                    to.size,
+                    to.size,
+                  );
+                  mesh.material = new MeshLambertMaterial({
+                    color,
+                    alphaMap: alphaT,
+                  });
+                  break;
             case MarkerType.Dot:
             default:
               mesh.geometry = new SphereGeometry(
