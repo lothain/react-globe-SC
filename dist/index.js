@@ -416,6 +416,7 @@ function useMarkers(markers, _a, _b) {
             var coordinates = marker.coordinates, value = marker.value;
             var shouldUseCustomMarker = renderer !== undefined;
             var color = marker.color || MARKER_DEFAULT_COLOR;
+            var alphaT = new three.TextureLoader().load("../checker.png");
             var size = sizeScale(value);
             var markerObject;
             if (shouldUseCustomMarker) {
@@ -431,12 +432,14 @@ function useMarkers(markers, _a, _b) {
                             mesh_1.geometry = new three.BoxGeometry(unitRadius, unitRadius, from_1.size);
                             mesh_1.material = new three.MeshLambertMaterial({
                                 color: color,
+                                alphaMap: alphaT,
                             });
                             break;
                         case MarkerType.Mine:
                             mesh_1.geometry = new three.BoxGeometry(unitRadius, unitRadius, from_1.size);
                             mesh_1.material = new three.MeshLambertMaterial({
                                 color: color,
+                                alphaMap: alphaT,
                             });
                             break;
                         case MarkerType.Dot:
@@ -479,7 +482,7 @@ function useMarkers(markers, _a, _b) {
             if (type === MarkerType.Mine) {
                 var positionSprites = coordinatesToPosition(coordinates, RADIUS + 5);
                 var spriteMap = new three.TextureLoader().load('../checker.png');
-                var spriteMaterial = new three.SpriteMaterial({ map: spriteMap, transparent: true, alphaTest: 0.5 });
+                var spriteMaterial = new three.SpriteMaterial({ map: spriteMap, transparent: false, alphaTest: 0.5 });
                 var sprite = new three.Sprite(spriteMaterial);
                 (_b = sprite.position).set.apply(_b, positionSprites);
                 sprite.scale.set(200, 200, 1);
