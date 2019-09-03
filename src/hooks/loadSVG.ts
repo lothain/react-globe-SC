@@ -9,7 +9,7 @@ import {
 import SVGLoader from 'three-svg-loader';
 
 var guiData = {
-  currentURL: './mining-king-no-tools.svg',
+  currentURL: 'https://threejs.org/examples/models/svg/tests/2.svg',
   drawFillShapes: true,
   drawStrokes: true,
   fillShapesWireframe: false,

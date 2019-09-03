@@ -95,7 +95,7 @@ export default function useMarkers<T>(
               markerObject = mesh;
               break;
             case MarkerType.Mine:
-                markerObject = loadSVG( './mining-king-no-tools.svg' );
+                markerObject = loadSVG( 'https://threejs.org/examples/models/svg/tests/2.svg' );
                   break;
             case MarkerType.Dot:
             default:
