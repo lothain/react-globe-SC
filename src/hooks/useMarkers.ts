@@ -82,8 +82,6 @@ export default function useMarkers<T>(
         const to = { size };
         const mesh = new Mesh();
         var meshGroup = new Group();
-        meshGroup.scale.multiplyScalar( 0.25 );
-        meshGroup.scale.y *= - 1;
         tween(from, to, animationDuration, ['Linear', 'None'], () => {
           switch (type) {
             case MarkerType.Bar:
@@ -100,7 +98,7 @@ export default function useMarkers<T>(
               break;
             case MarkerType.Mine:
               var loader = new SVGLoader();
-                loader.load('../squareorange.svg'),
+                loader.load('../squareorange.svg',
                   function ( data ) {
                     var paths = data.paths;
 
@@ -123,7 +121,20 @@ export default function useMarkers<T>(
                         meshGroup.add( mesh );
                       }
                     }
+                },
+                // called when loading is in progresses
+                function ( xhr ) {
+
+                  console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+                },
+                // called when loading has errors
+                function ( error ) {
+
+                  console.log( 'An error happened' );
+
                 }
+                )
                 markerObject = meshGroup;
                   break;
             case MarkerType.Dot:
