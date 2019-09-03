@@ -436,7 +436,7 @@ function useMarkers(markers, _a, _b) {
                             });
                             break;
                         case MarkerType.Mine:
-                            mesh_1.geometry = new three.PlaneGeometry(unitRadius, unitRadius);
+                            mesh_1.geometry = new three.BoxGeometry(unitRadius, unitRadius, from_1.size);
                             mesh_1.material = new three.MeshLambertMaterial({
                                 color: color,
                                 alphaMap: alphaT,

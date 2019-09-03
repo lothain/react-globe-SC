@@ -91,9 +91,10 @@ export default function useMarkers<T>(
               });
               break;
               case MarkerType.Mine:
-                  mesh.geometry = new PlaneGeometry(
+                  mesh.geometry = new BoxGeometry(
                     unitRadius,
                     unitRadius,
+                    from.size,
                   );
                   mesh.material = new MeshLambertMaterial({
                     color,
