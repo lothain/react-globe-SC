@@ -156,9 +156,8 @@ export default function useMarkers<T>(
       if (type === MarkerType.Mine) {
       const positionSprites = coordinatesToPosition(
         coordinates, RADIUS + 5);
-        var spriteMap = new TextureLoader().load( '../pickaxe.png' );
-        var spriteMaterial = new SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-        var sprite = new Sprite( spriteMaterial );
+      var spriteMaterial = new SpriteMaterial();
+      var sprite = new Sprite( spriteMaterial );
       sprite.position.set(...positionSprites);
       sprite.scale.set(5, 5, 1);
       markersRef.current.add(sprite);

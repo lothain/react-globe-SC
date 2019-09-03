@@ -481,8 +481,7 @@ function useMarkers(markers, _a, _b) {
             // sprite icons lulw
             if (type === MarkerType.Mine) {
                 var positionSprites = coordinatesToPosition(coordinates, RADIUS + 5);
-                var spriteMap = new three.TextureLoader().load('../pickaxe.png');
-                var spriteMaterial = new three.SpriteMaterial({ map: spriteMap, color: 0xffffff });
+                var spriteMaterial = new three.SpriteMaterial();
                 var sprite = new three.Sprite(spriteMaterial);
                 (_b = sprite.position).set.apply(_b, positionSprites);
                 sprite.scale.set(5, 5, 1);
