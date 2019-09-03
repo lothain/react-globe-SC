@@ -12,7 +12,8 @@ import {
   TextureLoader,
   PlaneGeometry,
   Sprite,
-  SpriteMaterial
+  SpriteMaterial,
+  DoubleSide,
 } from 'three';
 import { createGlowMesh } from 'three-glow-mesh';
 import {
@@ -156,6 +157,7 @@ export default function useMarkers<T>(
       var spriteMaterial = new SpriteMaterial();
       var sprite = new Sprite( spriteMaterial );
       sprite.position.set(...position);
+      sprite.scale.set(500, 500, 1)
 
       // handle events
       function handleClick(event: InteractionEvent) {

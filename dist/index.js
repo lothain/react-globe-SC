@@ -482,6 +482,7 @@ function useMarkers(markers, _a, _b) {
             var spriteMaterial = new three.SpriteMaterial();
             var sprite = new three.Sprite(spriteMaterial);
             (_b = sprite.position).set.apply(_b, position);
+            sprite.scale.set(500, 500, 1);
             // handle events
             function handleClick(event) {
                 event.stopPropagation();

@@ -475,6 +475,7 @@ function useMarkers(markers, _a, _b) {
             var spriteMaterial = new SpriteMaterial();
             var sprite = new Sprite(spriteMaterial);
             (_b = sprite.position).set.apply(_b, position);
+            sprite.scale.set(500, 500, 1);
             // handle events
             function handleClick(event) {
                 event.stopPropagation();
