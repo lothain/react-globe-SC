@@ -1,7 +1,7 @@
 import { Tween, Easing, update } from 'es6-tween';
 import React, { useRef as useRef$1, useEffect as useEffect$1, useState, useReducer } from 'react';
 import { useEventCallback } from 'react-cached-callback';
-import { PerspectiveCamera, AmbientLight, PointLight, Color, Group, Mesh, TextureLoader, SphereGeometry, MeshBasicMaterial, BackSide, MeshLambertMaterial, BoxGeometry, Vector3, SpriteMaterial, Sprite, WebGLRenderer, Scene } from 'three';
+import { PerspectiveCamera, AmbientLight, PointLight, Color, Group, Mesh, TextureLoader, SphereGeometry, MeshBasicMaterial, BackSide, MeshLambertMaterial, MeshPhongMaterial, ImageUtils, BoxGeometry, Vector3, SpriteMaterial, Sprite, WebGLRenderer, Scene } from 'three';
 import { Interaction } from 'three.interaction';
 import OrbitControls from 'three-orbitcontrols';
 import { createGlowMesh } from 'three-glow-mesh';
@@ -349,8 +349,9 @@ function useGlobe(_a, onTextureLoaded) {
         }
         new TextureLoader().load(texture, function (map) {
             sphere.geometry = new SphereGeometry(RADIUS, GLOBE_SEGMENTS, GLOBE_SEGMENTS);
-            sphere.material = new MeshLambertMaterial({
+            sphere.material = new MeshPhongMaterial({
                 map: map,
+                bumpMap: ImageUtils.loadTexture('http://learningthreejs.com/data/2013-09-16-how-to-make-the-earth-in-webgl/demo/bower_components/threex.planets/images/earthbump1k.jpg')
             });
             globe.add(sphere);
             // add glow if enabled

@@ -7,6 +7,8 @@ import {
   MeshLambertMaterial,
   SphereGeometry,
   TextureLoader,
+  ImageUtils,
+  MeshPhongMaterial,
 } from 'three';
 import { createGlowMesh } from 'three-glow-mesh';
 
@@ -101,8 +103,9 @@ export default function useGlobe<T>(
         GLOBE_SEGMENTS,
         GLOBE_SEGMENTS,
       );
-      sphere.material = new MeshLambertMaterial({
+      sphere.material = new MeshPhongMaterial({
         map,
+        bumpMap: ImageUtils.loadTexture('http://learningthreejs.com/data/2013-09-16-how-to-make-the-earth-in-webgl/demo/bower_components/threex.planets/images/earthbump1k.jpg')
       });
       globe.add(sphere);
 

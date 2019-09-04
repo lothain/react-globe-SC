@@ -356,8 +356,9 @@ function useGlobe(_a, onTextureLoaded) {
         }
         new three.TextureLoader().load(texture, function (map) {
             sphere.geometry = new three.SphereGeometry(RADIUS, GLOBE_SEGMENTS, GLOBE_SEGMENTS);
-            sphere.material = new three.MeshLambertMaterial({
+            sphere.material = new three.MeshPhongMaterial({
                 map: map,
+                bumpMap: three.ImageUtils.loadTexture('http://learningthreejs.com/data/2013-09-16-how-to-make-the-earth-in-webgl/demo/bower_components/threex.planets/images/earthbump1k.jpg')
             });
             globe.add(sphere);
             // add glow if enabled
