@@ -105,7 +105,6 @@ export default function useGlobe<T>(
       );
       sphere.material = new MeshPhongMaterial({
         map,
-        bumpMap: ImageUtils.loadTexture('http://learningthreejs.com/data/2013-09-16-how-to-make-the-earth-in-webgl/demo/bower_components/threex.planets/images/earthbump1k.jpg')
       });
       globe.add(sphere);
 
